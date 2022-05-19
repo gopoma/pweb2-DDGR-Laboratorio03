@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require("fs");
 const express = require('express');
 const bp = require("body-parser");
 
@@ -25,8 +26,15 @@ app.post("/api/notes/getNote", (request, response) => {
 });
 
 // TODO: Crear nuevos archivos MarkDown y almacenarlos en el servidor (Gustavo)
+// Source: https://stackoverflow.com/questions/2496710/writing-to-files-in-node-js
 app.post("/api/notes/createNote", (request, response) => {
-  response.json(request.body);
+  fs.writeFile("/tmp/test", "Hey there!", function(err) {
+    if(err) {
+        return console.log(err);
+    }
+    console.log("The file was saved!");
+  }); 
+  response.json({message:"worked"});
 });
 
 app.listen(4000, () => {
