@@ -28,7 +28,7 @@ app.post("/api/notes/getNote", (request, response) => {
 // TODO: Crear nuevos archivos MarkDown y almacenarlos en el servidor (Gustavo)
 // Source: https://stackoverflow.com/questions/2496710/writing-to-files-in-node-js
 app.post("/api/notes/createNote", (request, response) => {
-  fs.writeFile("/private/test", "Hey there!", function(err) {
+  fs.writeFile(path.resolve(__dirname, `private/${request.body.title}`), "Hey there!", function(err) {
     if(err) {
         return console.log(err);
     }
