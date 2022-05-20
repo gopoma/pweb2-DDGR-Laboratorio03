@@ -60,5 +60,26 @@ function addDocument(){
 }
 
 function showContent(name){
-  
+  let html = "";
+  let titulo ="";
+  const data = {
+    title: name
+  };
+  const url = "http://localhost:4000/api/notes/getNote";
+  const request ={
+    method: "POST",
+    headers:{
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  };
+  fetch(url, request)
+  .then(response => response.json())
+  .then(data =>{
+    console.log(data.title);
+    console.log(data.content);
+    titulo = `<h1 style="color: red">${data.title}</h1>`;
+    html += titulo + data.content;
+    document.getElementById('main').innerHTML = html;
+  })
 }
