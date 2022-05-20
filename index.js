@@ -41,8 +41,6 @@ app.post("/api/notes/createNote", (request, response) => {
   const {title, content} = request.body;
   fs.writeFile(path.resolve(__dirname, `private/${title}`), content, function(err) {
     if(err) {
-      console.log(err);
-      console.log("XDDD");
       response.status(500).json({error:true, message:"A wild error has appeared!"});
       return;
     }
