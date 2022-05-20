@@ -27,23 +27,27 @@ app.post("/api/notes/getNote", (request, response) => {
 });
 
 // TODO: Crear nuevos archivos MarkDown y almacenarlos en el servidor (Gustavo)
-// Source: https://stackoverflow.com/questions/2496710/writing-to-files-in-node-js
+// Source for fs.writeFile: https://stackoverflow.com/questions/2496710/writing-to-files-in-node-js
+// Source for String.prototype.split: https://stackoverflow.com/questions/1493407/how-to-split-a-string-in-javascript
 app.post("/api/notes/createNote", (request, response) => {
   if(!request.body.title) {
-    response.status(400).json({error:true,message:"Fill all the fields"});
+    response.status(400).json({error:true, message:"Fill all the fields"});
     return;
   }
   const titleComponents = request.body.title.split(".");
   if(titleComponents[titleComponents.length - 1] !== "md") {
     request.body.title += ".md"
   }
-  fs.writeFile(path.resolve(__dirname, `private/${request.body.title}`), "Hey there!", function(err) {
+  const {title, content} = request.body;
+  fs.writeFile(path.resolve(__dirname, `private/${title}`), content, function(err) {
     if(err) {
-        return console.log(err);
+      console.log(err);
+      console.log("XDDD");
+      response.status(500).json({error:true, message:"A wild error has appeared!"});
+      return;
     }
-    console.log("The file was saved!");
+    response.status(201).json({message:"The file was saved!"});
   }); 
-  response.json({message:"worked"});
 });
 
 app.listen(4000, () => {
