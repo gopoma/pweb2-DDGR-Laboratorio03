@@ -35,7 +35,25 @@ app.get("/api/notes/getAll", (request, response) => {
 
 // TODO: Ver el contenido de un archivo Markdown traducido a HTML (Diego)
 app.post("/api/notes/getNote", (request, response) => {
-  response.json(request.body);
+  console.log("este es el request : "+request.body.title);
+  let markDownTitle = request.body.title;
+  console.log("Este es el title de loq se pide: "+markDownTitle);
+  fs.readFile(path.resolve(__dirname,"private",markDownTitle),"utf8",
+    (err, data) => {
+      if (err) {
+        console.error(err)
+        response.status(500).json({
+          error: 'message'
+        })
+        return
+      }
+      console.log("esto es data");
+      console.table(data);
+      let htmlText=md.render(String(data));
+      response.json({
+        title: markDownTitle , content: htmlText
+      })
+    })
 });
 
 // TODO: Crear nuevos archivos MarkDown y almacenarlos en el servidor (Gustavo)
