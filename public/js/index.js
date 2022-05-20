@@ -23,34 +23,37 @@ function showListMarkdown(){
 }
 
 function showCreateDocument(){
-  document.querySelector("#noteForm").onsubmit = function () {
-  const data = {
-    title: document.querySelector("#title").value,
-    content: document.querySelector("#content").value
-  };
+  
+  let html = `<form id="noteForm"><input type="text" id="title" placeholder="Title"><textarea id="content" cols="30" rows="10" placeholder="Content"></textarea><button onclick="addDocument()">Create</button></form>`;
 
-  const url = "http://localhost:4000/api/notes/createNote";
-  const request = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  }
-
-  fetch(url, request)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-  })
-  .catch(error => {console.log(error);})
-    return false;
-  }
-
-
-  document.getElementById("main").innerHTML = "Página de creación archivo Markdown"; // evento
+  document.getElementById("main").innerHTML = html;
+  
 }
 
+function addDocument(){
+  console.log("Entra Aqui");
+  document.querySelector("#noteForm").onsubmit = function (){
+    console.log("Entra aqui x2");
+    const data ={
+      title: document.querySelector("#title").value,
+      content: document.querySelector("#content").value
+    };
+    
+    const url = "http://localhost:4000/api/notes/createNote";
+    const request = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    }
 
-console.log("Funciona!");
-
+    fetch(url, request)
+    .then(response => response.json())
+    .then(data =>{
+      console.log(data);
+    })
+    .catch(error => {console.log(error);})
+    return false;
+  }
+}
