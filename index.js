@@ -31,13 +31,15 @@ app.post("/api/notes/getNote", (request, response) => {
 // Source for String.prototype.split: https://stackoverflow.com/questions/1493407/how-to-split-a-string-in-javascript
 app.post("/api/notes/createNote", (request, response) => {
   if(!request.body.title) {
-    response.status(400).json({error:true, message:"Fill all the fields"});
+    response.status(400).json({error:true, message:"Please provide title"});
     return;
   }
+
   const titleComponents = request.body.title.split(".");
   if(titleComponents[titleComponents.length - 1] !== "md") {
     request.body.title += ".md"
   }
+  
   const {title, content} = request.body;
   fs.writeFile(path.resolve(__dirname, `private/${title}`), content, function(err) {
     if(err) {
