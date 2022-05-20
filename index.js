@@ -2,7 +2,6 @@ const path = require('path');
 const fs = require("fs");
 const express = require('express');
 const bp = require("body-parser");
-const { title } = require('process');
 
 const app = express();
 
@@ -39,7 +38,7 @@ app.post("/api/notes/createNote", (request, response) => {
   if(titleComponents[titleComponents.length - 1] !== "md") {
     request.body.title += ".md"
   }
-  
+
   const {title, content} = request.body;
   fs.writeFile(path.resolve(__dirname, `private/${title}`), content, function(err) {
     if(err) {
