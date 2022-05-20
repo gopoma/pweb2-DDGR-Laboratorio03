@@ -5,7 +5,17 @@ function showWelcome(){
 }
 
 function showListMarkdown(){
-  document.getElementById("main").innerHTML = "Página de lista archivos Markdown"; // evento
+  const url="http://localhost:4000/api/notes/getAll";
+  let p = "<p></p>"
+  fetch(url)
+  .then(function(response){
+    return response.json()
+  })
+  .then(function(data){
+    console.log(data);
+    console.log(data.files[0]);
+  })
+  document.getElementById("main").innerHTML = "<h2>Lista de documentos Markdown creados</h2><br>"; // evento
 }
 
 function showCreateDocument(){
