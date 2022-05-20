@@ -11,15 +11,16 @@ function showListMarkdown(){
   .then(function(response){
     return response.json();
   })
-  .then(function(data){
+  .then(data =>{
     console.log(data);
     console.log(data.files[0]);
     for(let i=0; i<data.files.length; i++){
-      let p = `<p onclick="showContent()">${data.files[i]}</p><br>`;
+      let p = `<p onclick="showContent('${data.files[i]}')">${data.files[i]}</p><br>`;
       html = html + p;
     }
-  document.getElementById('main').innerHTML = html;
+    document.getElementById('main').innerHTML = html;
   })
+  document.getElementById("main").innerHTML = "Página de lista archivos Markdown"; // evento
 }
 
 function showCreateDocument(){
@@ -56,4 +57,8 @@ function addDocument(){
     .catch(error => {console.log(error);})
     return false;
   }
+}
+
+function showContent(name){
+  
 }
