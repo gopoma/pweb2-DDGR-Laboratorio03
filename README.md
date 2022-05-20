@@ -39,7 +39,7 @@ The RESTFul API is described below.
 ### Response
 ```json
   {
-    files: [
+    "files": [
       "nota.md",
       "nota2.md",
       "nota3.md",
@@ -55,6 +55,24 @@ The RESTFul API is described below.
       "note11.md",
     ]
   }
+```
+
+## Ver el contenido de un archivo Markdown traducido a HTML
+### Request
+`POST /api/notes/getNote`
+
+```json
+body {
+  "title": "nota2.md"
+}
+```
+
+### Response
+```json
+{
+  "title": "nota2.md",
+  "content": "<h1>El encabezado más largo</h1>\n<h2>El segundo encabezado más largo</h2>\n<h6>El encabezado más pequeño</h6>\n"
+}
 ```
 
 ## Crear nuevos archivos MarkDown y almacenarlos en el servidor
