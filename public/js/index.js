@@ -5,17 +5,21 @@ function showWelcome(){
 }
 
 function showListMarkdown(){
-  const url="http://localhost:4000/api/notes/getAll";
-  let p = "<p></p>"
+  let html = "";
+  const url = "http://localhost:4000/api/notes/getAll";
   fetch(url)
   .then(function(response){
-    return response.json()
+    return response.json();
   })
   .then(function(data){
     console.log(data);
     console.log(data.files[0]);
+    for(let i=0; i<data.files.length; i++){
+      let p = `<p onclick="showContent()">${data.files[i]}</p><br>`;
+      html = html + p;
+    }
+  document.getElementById('main').innerHTML = html;
   })
-  document.getElementById("main").innerHTML = "<h2>Lista de documentos Markdown creados</h2><br>"; // evento
 }
 
 function showCreateDocument(){
