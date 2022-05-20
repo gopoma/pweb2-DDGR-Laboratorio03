@@ -1,4 +1,3 @@
-const fs = require('fs')
 const path = require('path');
 const fs = require("fs");
 const express = require('express');
@@ -23,16 +22,15 @@ app.get("/", (request, response) => {
 // {"title": "", "content": ""}
 
 // TODO: Listas los archivos Markdown disponibles (Diego)
-app.post("/api/notes/getAll", (request, response) => {
+app.get("/api/notes/getAll", (request, response) => {
   console.log(request.body)
   //Para listar todos los archivos utilizamos fs ,se saco de :
   //https://stackoverflow.com/questions/2727167/how-do-you-get-a-list-of-the-names-of-all-files-present-in-a-directory-in-node-j
   var files = fs.readdirSync(path.resolve(__dirname,"private"));
   console.log(files);
   response.json({
-      files
-    });
-  
+    files
+  });
 });
 
 // TODO: Ver el contenido de un archivo Markdown traducido a HTML (Diego)
